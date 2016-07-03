@@ -1,0 +1,11 @@
+their %976 +PRP$
+her %770 +PRP$
+his %1420 +PRP$
+its %652 +PRP$
+country’s %2 +PRP$
+it’s %1 +PRP$
+our %1030 +PRP$
+your %1707 +PRP$
+china’s %1 +PRP$
+my %1833 +PRP$
+yours %1 +PRP$

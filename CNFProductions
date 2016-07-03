@@ -1,0 +1,50 @@
+// Normal grammar converted to Chomsky Normal Form
+// Base 
+S NP VP
+NP DetTemp Nominal
+NP Noun
+NP Pronoun
+DetTemp Det
+Nominal Noun
+VP VerbTemp NP
+VP VerbTemp NP+PP
+VP VerbTemp NP+NP
+VP VerbTemp PP
+VP Verb
+VerbTemp Verb
+NP+NP NP NP
+NP+PP NP PP
+PP PrepositionTemp NP
+PrepositionTemp Preposition
+// Adding more sentence types
+// many of which are S->VP
+S VerbTemp NP
+S VerbTemp NP+PP
+S VerbTemp NP+NP
+S VerbTemp PP
+S Verb
+S Aux+NP VP
+S Wh-NP VP
+S Wh-NP Aux+NP+VP
+Aux+NP+VP Aux+NP VP
+Wh-NP Wh-WordTemp NounTemp
+Wh-NP Wh-Word
+Wh-WordTemp Wh-Word
+NounTemp Noun
+Aux+NP AuxTemp NP
+AuxTemp Aux
+// Expanding the noun phrase
+NP PreNominal Nominal
+PreNominal DetTemp AP
+PreNominal Possessive
+PreNominal PossessiveTemp AP
+PossessiveTemp Possessive
+AP AdjTemp AP
+AP Adj
+AdjTemp Adj
+// adding coordination
+NP NP Conj+NP
+Conj+NP ConjTemp NP
+VP VP Conj+VP
+Conj+VP ConjTemp VP
+ConjTemp Conj

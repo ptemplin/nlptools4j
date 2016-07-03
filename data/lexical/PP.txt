@@ -1,0 +1,3 @@
+we %3 +PP
+them %1 +PP
+you %2 +PP

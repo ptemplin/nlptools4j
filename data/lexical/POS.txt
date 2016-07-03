@@ -1,0 +1,7 @@
+'s %1532 +POS
+&amp;#8217;s %1 +POS
+&amp;#39; %1 +POS
+&amp;#39;s %7 +POS
+’s %18 +POS
+’ %6 +POS
+when %1 +POS

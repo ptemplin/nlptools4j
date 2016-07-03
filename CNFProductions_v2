@@ -1,0 +1,151 @@
+//
+// The almost complete English CFG converted to Chomsky Normal Form
+//
+
+// Base 
+S NP VP
+//NP DetTemp Nominal
+NP Pronoun
+NP ProperNoun
+//DetTemp Det
+//Nominal Noun
+//VP VerbTemp NP
+//VP VerbTemp PP
+//VP Verb
+//VerbTemp Verb
+PP PrepositionTemp NP
+PrepositionTemp Preposition
+
+//
+// Adding more sentence types
+//
+
+// these are all S->VP
+S CplxVerb NP
+S CplxVerb PP
+S CplxVerb NP+PP
+S CplxVerb NP+NP
+S CplxVerb PP+PP
+S CplxVerb PP+PP+PP
+S CplxVerb VPto
+S CplxVerb VP
+S CplxVerb S
+S VerbTemp AP
+S VerbTemp AP+PP
+// cascaded
+S VerbTemp AdvP
+S Verb
+
+// other sentence types
+S AuxTemp NP+VP
+S Wh-WordTemp VP
+S Wh-WordTemp NP+VP
+S Wh-WordTemp Aux+NP+VP
+Aux+NP+VP AuxTemp NP+VP
+NP+VP NP VP
+Wh-WordTemp Wh-Word
+AuxTemp Aux
+
+//
+// Expanding the noun phrase (prenominal)
+//
+
+// the prenominal (many of which are cascaded
+NP DetTemp APNominal
+DetTemp Det
+NP AP Nominal
+NP NounTemp Nominal
+NP Noun
+NP Nominal PP
+NP Nominal VP
+NP Nominal RelClause
+APNominal AP Nominal
+APNominal NounTemp Nominal
+APNominal Noun
+APNominal Nominal PP
+APNominal Nominal VP
+APNominal Nominal RelClause
+AP CplxAdj AP
+AP AdvTemp AdjTemp
+AP Adj
+CplxAdj AdvTemp AdjTemp
+AdvTemp Adv
+AdjTemp Adj
+CplxAdj Adj
+
+// a nominal can be multiple nouns
+Nominal NounTemp Nominal
+NounTemp Noun
+Nominal Noun
+
+//
+// Expanding the noun phrase (postnominal)
+// *all of the different VP's are encapsulated in VP
+//
+Nominal Nominal PP
+Nominal Nominal VP
+Nominal Nominal RelClause
+RelClause PronounTemp VP
+PronounTemp Pronoun
+
+//
+// Adding coordination
+//
+
+NP NP Conj+NP
+Conj+NP ConjTemp NP
+VP VP Conj+VP
+Conj+VP ConjTemp VP
+PP PP Conj+PP
+Conj+PP ConjTemp PP
+S S Conj+S
+Conj+S ConjTemp S
+ConjTemp Conj
+
+//
+// Expanding the verb phrase (framing)
+//
+
+VP CplxVerb NP
+VP CplxVerb PP
+VP CplxVerb NP+PP
+NP+PP NP PP
+VP CplxVerb NP+NP
+NP+NP NP NP
+VP CplxVerb PP+PP
+PP+PP PP PP
+VP CplxVerb PP+PP+PP
+PP+PP+PP PP PP+PP
+VP CplxVerb VPto
+VPto Preposition VP
+VP CplxVerb VP
+VP CplxVerb S
+VP VerbTemp AP
+VP VerbTemp AP+PP
+AP+PP AP PP
+// cascaded
+VP VerbTemp AdvP
+VP Verb
+
+//
+// Adverbs and fronting
+//
+
+// Fronting
+S PP S
+S AdvP S
+
+// the complex verb
+CplxVerb VerbTemp AdvP
+CplxVerb Verb
+VerbTemp Verb
+
+// other adverb uses
+VP AdvP VP
+VP VP AdvP
+AdvP CplxAdv Conj+AdvP
+Conj+AdvP Conj AdvP
+AdvP AdjTemp AdvTemp
+AdvP Adv
+CplxAdv AdjTemp AdvTemp
+CplxAdv Adv

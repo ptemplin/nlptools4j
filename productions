@@ -1,0 +1,20 @@
+// Base Rules
+NP Det Nominal
+Nominal Noun
+S NP VP
+VP Verb NP
+Verb Verb NP PP
+VP Verb PP
+PP Preposition NP
+VP Verb
+// Additional Rules
+S VP
+S Aux NP VP
+S Wh-NP VP
+S Wh-NP Aux VP
+Wh-NP Wh-Word NP
+Nominal AP Nominal
+AP Adj
+NP NP Conj NP
+VP VP Conj VP
+// for the purposes of favouring some rules over others

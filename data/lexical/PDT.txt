@@ -1,0 +1,2 @@
+all %222 +PDT
+half %26 +PDT

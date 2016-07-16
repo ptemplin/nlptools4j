@@ -1,4 +1,4 @@
-package vocal;
+package ptemplin.nlp.tts.legacy;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,11 +17,14 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
+import ptemplin.nlp.tts.parse.HTMLExtractor;
+
+@Deprecated
 public class Voice {
 
     private static final int BUFFER_SIZE = 128000;
-    private static DataLine.Info dataLineInfo = null;
-    private static AudioFormat audioFormat = null;
+    private static DataLine.Info dataLineInfo;
+    private static AudioFormat audioFormat;
     
     public static final String recordingDir = "file:/C:/Users/Me/Documents/SoundRecordings/";
     

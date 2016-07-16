@@ -1,4 +1,4 @@
-package vocal;
+package ptemplin.nlp.tts.parse;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

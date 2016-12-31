@@ -1,7 +1,5 @@
 package tokenize;
 
-import tokenize.PartOfSpeech;
-
 public class Tag {
 
 	// the terminal category

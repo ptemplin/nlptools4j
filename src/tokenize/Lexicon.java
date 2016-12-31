@@ -1,5 +1,7 @@
 package tokenize;
 
+import app.Constants;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,33 +9,34 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Lexicon {
 	
 	// the root file path
-	private static final String fileRoot = "C:/Projects/nlptools4j/res/lexical/";
+	private static final String fileRoot = Constants.RES_DIR + "/lexical/";
 
 	// the singleton
 	private static Lexicon lexicon;
 	
 	// parts of speech
-	public HashMap<String, Tag> regNouns = new HashMap<>();
-	public HashMap<String,Tag> pronouns = new HashMap<>();
-	public HashMap<String,Tag> properNouns = new HashMap<>();
-	public HashMap<String,Tag> verbs = new HashMap<>();
-	public HashMap<String,Tag> gerundVerbs = new HashMap<>();
-	public HashMap<String,Tag> determiners = new HashMap<>();
-	public HashMap<String,Tag> prepositions = new HashMap<>();
-	public HashMap<String,Tag> auxiliaries = new HashMap<>();
-	public HashMap<String,Tag> whWords = new HashMap<>();
-	public HashMap<String,Tag> adjectives = new HashMap<>();
-	public HashMap<String,Tag> adverbs = new HashMap<>();
-	public HashMap<String,Tag> conjunctions = new HashMap<>();
-	public HashMap<String,Tag> interjections = new HashMap<>();
-	public HashMap<String,Tag> endPunctuation = new HashMap<>();
+	private HashMap<String, Tag> regNouns = new HashMap<>();
+	private HashMap<String,Tag> pronouns = new HashMap<>();
+	private HashMap<String,Tag> properNouns = new HashMap<>();
+	private HashMap<String,Tag> verbs = new HashMap<>();
+	private HashMap<String,Tag> gerundVerbs = new HashMap<>();
+	private HashMap<String,Tag> determiners = new HashMap<>();
+	private HashMap<String,Tag> prepositions = new HashMap<>();
+	private HashMap<String,Tag> auxiliaries = new HashMap<>();
+	private HashMap<String,Tag> whWords = new HashMap<>();
+	private HashMap<String,Tag> adjectives = new HashMap<>();
+	private HashMap<String,Tag> adverbs = new HashMap<>();
+	private HashMap<String,Tag> conjunctions = new HashMap<>();
+	private HashMap<String,Tag> interjections = new HashMap<>();
+	private HashMap<String,Tag> endPunctuation = new HashMap<>();
 	
 	// mapping of the files to the categories
-	public HashMap<String,HashMap<String,Tag>> filenameToCat = new HashMap<>();
+	private HashMap<String,HashMap<String,Tag>> filenameToCat = new HashMap<>();
 
 	private Lexicon(){
 		initialize();
@@ -44,6 +47,14 @@ public class Lexicon {
 			lexicon = new Lexicon();
 		}
 		return lexicon;
+	}
+
+	public Set<Map.Entry<String, HashMap<String, Tag>>> getCategoryMaps() {
+		return filenameToCat.entrySet();
+	}
+
+	public boolean isEndPunctuation(String s) {
+		return endPunctuation.containsKey(s);
 	}
 	
 	private void initialize() {
@@ -109,179 +120,13 @@ public class Lexicon {
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.exit(1);
-			}
-			if (scanner != null) {
-				scanner.close();
+			} finally {
+				if (scanner != null) {
+					scanner.close();
+				}
 			}
 		}
 	}
-	
-//	private void doNouns() {
-//		File file = new File(fileRoot + "noun.txt");
-//		Scanner scanner = null;
-//		try {
-//			scanner = new Scanner(new BufferedReader(new FileReader(file)));
-//			String line;
-//			// get the regular nouns
-//			// skip the first line
-//			scanner.nextLine();
-//			while(true) {
-//				line = scanner.nextLine();
-//				if (line.isEmpty()) {
-//					break;
-//				}
-//				String[] parts = line.split(" ");
-//				regNouns.add(parts[0]);
-//			}
-//			// get the irregular singular nouns
-//			// skip the first line
-//			scanner.nextLine();
-//			while(true) {
-//				line = scanner.nextLine();
-//				if (line.isEmpty()) {
-//					break;
-//				}
-//				regNouns.add(line);
-//			}
-//			// get the irregular plural nouns
-//			// skip the first line
-//			scanner.nextLine();
-//			while(true) {
-//				line = scanner.nextLine();
-//				if (line.isEmpty()) {
-//					break;
-//				}
-//				String[] parts = line.split(":");
-//				regNouns.add(parts[0]);
-//			}
-//			// get the irregular singular nouns
-//			// skip the first line
-//			scanner.nextLine();
-//			while(true) {
-//				line = scanner.nextLine();
-//				if (line.isEmpty()) {
-//					break;
-//				}
-//				determiners.add(line);
-//			}
-//			// get the pronouns
-//			// skip the first line
-//			scanner.nextLine();
-//			while(scanner.hasNextLine()) {
-//				line = scanner.nextLine();
-//				pronouns.add(line);
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	private void doVerbs() {
-//		File file = new File(fileRoot + "verbs.txt");
-//		Scanner scanner = null;
-//		try {
-//			scanner = new Scanner(new BufferedReader(new FileReader(file)));
-//			String line;
-//			// get the verbs
-//			while(scanner.hasNextLine()) {
-//				line = scanner.nextLine();
-//				String[] parts = line.split(" ");
-//				verbs.add(parts[0]);
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	private void doAdjectives() {
-//		File file = new File(fileRoot + "adjectives.txt");
-//		Scanner scanner = null;
-//		try {
-//			scanner = new Scanner(new BufferedReader(new FileReader(file)));
-//			String line;
-//			// get the verbs
-//			while(scanner.hasNextLine()) {
-//				line = scanner.nextLine();
-//				String[] parts = line.split(" ");
-//				adjectives.add(parts[0]);
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	private void doAdverbs() {
-//		File file = new File(fileRoot + "adverbs.txt");
-//		Scanner scanner = null;
-//		try {
-//			scanner = new Scanner(new BufferedReader(new FileReader(file)));
-//			String line;
-//			// get the verbs
-//			while(scanner.hasNextLine()) {
-//				line = scanner.nextLine();
-//				adverbs.add(line);
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	private void doDeterminers() {
-//		determiners.add("a");
-//		determiners.add("an");
-//		determiners.add("the");
-//	}
-//	
-//	private void doPrepositions() {
-//		prepositions.add("on");
-//		prepositions.add("up");
-//		prepositions.add("down");
-//		prepositions.add("of");
-//		prepositions.add("to");
-//		prepositions.add("from");
-//		prepositions.add("over");
-//		prepositions.add("with");
-//		prepositions.add("for");
-//		prepositions.add("when");
-//		prepositions.add("at");
-//	}
-//	
-//	private void doAuxillaries() {
-//		auxillaries.add("can");
-//		auxillaries.add("do");
-//		auxillaries.add("did");
-//		auxillaries.add("does");
-//		auxillaries.add("want");
-//		auxillaries.add("wants");
-//		auxillaries.add("would");
-//		auxillaries.add("should");
-//	}
-//	
-//	private void doWHWords() {
-//		whWords.add("who");
-//		whWords.add("what");
-//		whWords.add("which");
-//		whWords.add("why");
-//		whWords.add("when");
-//		whWords.add("where");
-//		whWords.add("how");
-//	}
-//	
-//	private void doConjunctions() {
-//		conjunctions.add("and");
-//		conjunctions.add("or");
-//		conjunctions.add("but");
-//		conjunctions.add("because");
-//		conjunctions.add("if");
-//		conjunctions.add("then");
-//	}
-//	
-//	private void doPunctuation() {
-//		punctuation.add(".");
-//		punctuation.add("!");
-//		punctuation.add("?");
-//		punctuation.add("'");
-//	}
 	
 	private PartOfSpeech getPartOfSpeechFromMap(HashMap<String,Tag> map) {
 		if (map == regNouns) {

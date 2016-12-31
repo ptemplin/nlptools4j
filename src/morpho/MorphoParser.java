@@ -14,14 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static app.Constants.RES_DIR;
+
 /*
  * Morphological parser for nouns of the English language. It takes as input a sentence of English
  * words and outputs the morphological classification, consisting of the stem and appropriate
  * affixes, for each word in the sentence (one per line). 
  */
 public class MorphoParser {
+
+	private static final String NOUNS_FILE = RES_DIR + "/lexical/nouns.txt";
 	
-	// punctuation symbols in English
+	// end punctuation symbols in English
 	public static char[] punctuation = {'.','!','?'};
 	// noun classes
 	public static Set<String> regNouns = new HashSet<>();
@@ -111,7 +115,7 @@ public class MorphoParser {
 	}
 	
 	private static void initializeLexicon() {
-		File file = new File("C:\\Projects\\NLPExperiments\\nouns.txt");
+		File file = new File(NOUNS_FILE);
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new BufferedReader(new FileReader(file)));

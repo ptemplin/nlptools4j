@@ -1,7 +1,5 @@
 package tokenize;
 
-import tokenize.Tag;
-
 import java.util.List;
 import java.util.ArrayList;
 

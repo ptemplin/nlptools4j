@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represents a parse node in a CFG parse tree.
+ */
 public class ParseNode {
 
 	// the children of this node in the parse tree

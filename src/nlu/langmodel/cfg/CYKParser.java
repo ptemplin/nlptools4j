@@ -15,27 +15,33 @@ import java.util.List;
 import java.util.Set;
 
 /*
- * The CYKParser class represents a parser for the structures
- * of the English language. It takes as input a sentence
- * of English words and outputs the parse tree,
- * consisting of the appropriate production rules for the sentence
+ * Implementation of CFGParser for English using the CYK parsing algorithm. It takes as input a
+ * sentence of English words and returns the corresponding parse tree.
  */
-public class CYKParser {
+public class CYKParser implements CFGParser {
+
+	private static final String CNF_PRODUCTIONS_FILE = CFGParser.CFG_RES_DIR + "CNFProductions_v2";
+	private static final String TERMINALS_FILE = CFGParser.CFG_RES_DIR + "terminals";
+	private static final String NONTERMINALS_FILE = CFGParser.CFG_RES_DIR + "nonterminals";
 	
 	// the production rules of the grammar
-	public static Map<String,List<String>> rules = new HashMap<>();
+	private Map<String,List<String>> rules = new HashMap<>();
 	// the terminals of the grammar
-	public static Set<String> terminals = new HashSet<>();
-	// the nonterminals in the grammar
-	public static List<String> nonTerminals = new ArrayList<>();
+	private Set<String> terminals = new HashSet<>();
+	// the nonterminals of the grammar
+	private List<String> nonTerminals = new ArrayList<>();
 
-	public static ParseNode parse(List<Token> tokens) {
-		// if the rules haven't been intialized, do that first
-		if (rules.isEmpty()) {
-			// intialize the production rules of the grammar
-			initializeRules();
-		}
-		
+	public CYKParser() {
+		initializeRules();
+		initializeTerminals();
+		initializeNonTerminals();
+	}
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+	public ParseNode parse(List<Token> tokens) {
 		Token[] tokArr = new Token[tokens.size()];
 		for (int i = 0; i < tokens.size(); i++) {
 			tokArr[i] = tokens.get(i);
@@ -52,9 +58,14 @@ public class CYKParser {
 		}
 		return root;
 	}
-	
-	// input is word classes, words is lexeme
-	public static ParseNode parseCYK(Token[] tokens) {
+
+    /**
+     * Parses the tokens array using the CYK algorithm and the configured grammar.
+     *
+     * @param tokens to parse
+     * @return the root node in the parse tree
+     */
+	private ParseNode parseCYK(Token[] tokens) {
 		int inputLen = tokens.length;
 		int numNonTerminals = nonTerminals.size();
 		ParseNode[][][] parseMatrix = new ParseNode[inputLen][inputLen][numNonTerminals];
@@ -111,12 +122,10 @@ public class CYKParser {
 		}
 		
 		//printMatrix(parseMatrix,inputLen,inputLen,numNonTerminals);
-		// finally, check to see the the start symbol S can be derived
-		ParseNode root = parseMatrix[inputLen-1][0][0];
-		return root;
+		return parseMatrix[inputLen-1][0][0];
 	}
 	
-	private static int getIndexOfNonTerminal(String s) {
+	private int getIndexOfNonTerminal(String s) {
 		for (int i = 0; i < nonTerminals.size(); ++i) {
 			if (nonTerminals.get(i).equals(s)) {
 				return i;
@@ -125,7 +134,7 @@ public class CYKParser {
 		return 0;
 	}
 	
-	private static void printMatrix(ParseNode[][][] matrix, int i, int j, int k) {
+	private void printMatrix(ParseNode[][][] matrix, int i, int j, int k) {
 		for (int a = 0; a < i; a++) {
 			for (int b = 0; b < j; b++) {
 				int count = 0;
@@ -164,17 +173,14 @@ public class CYKParser {
 		} else {
 			// do a preorder traversal of the children
 			derivation.add(current.rule);
-			if (current.rule.equals("NP Det Nominal")) {
-				//applyAdjustArticleRule(current);
-			}
 			for (ParseNode node : current.children) {
 				buildDerivation(node,derivation,sentence);
 			}
 		}
 	}
 	
-	public static void initializeRules() {
-		File file = new File("C:/Projects/nlptools4j/res/cfg/CNFProductions_v2");
+	private void initializeRules() {
+		File file = new File(CNF_PRODUCTIONS_FILE);
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new BufferedReader(new FileReader(file)));
@@ -187,8 +193,7 @@ public class CYKParser {
 					continue;
 				}
 				int space = line.indexOf(' ');
-				String LHS = null;
-				String RHS = null;
+				String LHS, RHS;
 				if (space == -1) {
 					LHS = line;
 					RHS = "";
@@ -206,10 +211,16 @@ public class CYKParser {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			if (scanner != null) {
+				scanner.close();
+			}
 		}
-		scanner.close();
-		file = new File("C:/Projects/nlptools4j/res/cfg/terminals");
-		scanner = null;
+	}
+
+	private void initializeTerminals() {
+		File file = new File(TERMINALS_FILE);
+		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new BufferedReader(new FileReader(file)));
 			String line;
@@ -220,9 +231,16 @@ public class CYKParser {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			if (scanner != null) {
+				scanner.close();
+			}
 		}
-		scanner.close();
-		file = new File("C:/Projects/nlptools4j/res/cfg/nonterminals");
+	}
+
+	private void initializeNonTerminals() {
+		Scanner scanner = null;
+		File file = new File(NONTERMINALS_FILE);
 		try {
 			scanner = new Scanner(new BufferedReader(new FileReader(file)));
 			String line;
@@ -233,6 +251,10 @@ public class CYKParser {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			if (scanner != null) {
+				scanner.close();
+			}
 		}
 	}
 }

@@ -5,6 +5,9 @@ import nlu.langmodel.cfg.ParseNode;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Performs trivial semantic analysis on parse trees.
+ */
 public class SemanticAnalyzer {
 
 	public static List<String> facts = new ArrayList<>();

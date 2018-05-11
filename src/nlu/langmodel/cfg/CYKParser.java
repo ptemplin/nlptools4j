@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class CYKParser implements CFGParser {
 
-	private static final String CNF_PRODUCTIONS_FILE = CFGParser.CFG_RES_DIR + "CNFProductions_v2";
+	private static final String CNF_PRODUCTIONS_FILE = CFGParser.CFG_RES_DIR + "CNFProductions";
 	private static final String TERMINALS_FILE = CFGParser.CFG_RES_DIR + "terminals";
 	private static final String NONTERMINALS_FILE = CFGParser.CFG_RES_DIR + "nonterminals";
 	
@@ -51,11 +51,11 @@ public class CYKParser implements CFGParser {
 			System.out.println("Unsuccessful parse");
 			return null;
 		}
-		List<String> derivation = new ArrayList<>();
-		buildDerivation(root,derivation,null);
-		for (String s : derivation) {
-			System.out.println(s);
-		}
+//		List<String> derivation = new ArrayList<>();
+//		buildDerivation(root,derivation,null);
+//		for (String s : derivation) {
+//			System.out.println(s);
+//		}
 		return root;
 	}
 

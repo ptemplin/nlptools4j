@@ -3,6 +3,7 @@ package app;
 import nlu.langmodel.cfg.CFGParser;
 import nlu.langmodel.cfg.CYKParser;
 import nlu.langmodel.cfg.ParseNode;
+import nlu.langmodel.cfg.ParseTreePrinter;
 import nlu.semantics.SemanticAnalyzer;
 import tokenize.Tokenizer;
 import tokenize.Lexicon;
@@ -43,6 +44,7 @@ public class ParseUserInput {
 			// parse the tokens and perform simple semantic analysis if successful
 			ParseNode parseTree = parser.parse(tokens);
 			if (parseTree != null) {
+				ParseTreePrinter.printTreeWithTabs(parseTree);
 				SemanticAnalyzer.analyze(parseTree);
 				System.out.println(SemanticAnalyzer.facts.toString());
 			}

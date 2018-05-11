@@ -19,7 +19,7 @@ public enum PartOfSpeech {
 	
 	private String text;
 	
-	private PartOfSpeech(String s) {text = s;}
+	PartOfSpeech(String s) {text = s;}
 	
 	public String toString() {
 		return text;

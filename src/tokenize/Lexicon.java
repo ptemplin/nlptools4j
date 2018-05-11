@@ -52,6 +52,41 @@ public class Lexicon {
 	public Set<Map.Entry<String, HashMap<String, Tag>>> getCategoryMaps() {
 		return filenameToCat.entrySet();
 	}
+	
+	public Map<String, Tag> getCategoryFromPartOfSpeech(String pos) {
+	    switch(pos) {
+            case "Noun":
+                return regNouns;
+            case "Pronoun":
+                return pronouns;
+            case "ProperNoun":
+                return properNouns;
+            case "Det":
+                return determiners;
+            case "Verb":
+                return verbs;
+            case "GerundV":
+                return gerundVerbs;
+            case "Adj":
+                return adjectives;
+            case "Adv":
+                return adverbs;
+            case "Preposition":
+                return prepositions;
+            case "Wh-Word":
+                return whWords;
+            case "Aux":
+                return auxiliaries;
+            case "Conj":
+                return conjunctions;
+            case "Inj":
+                return interjections;
+            case "Punct":
+                return endPunctuation;
+            default:
+                return null;
+        }
+    }
 
 	public boolean isEndPunctuation(String s) {
 		return endPunctuation.containsKey(s);
